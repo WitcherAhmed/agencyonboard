@@ -18,6 +18,17 @@ import store
 import tools
 
 
+def require_llm_key() -> None:
+    """Fail loudly and usefully if no model key is configured."""
+    if not config.LLM_API_KEY:
+        raise SystemExit(
+            "No LLM key configured.\n"
+            "  Windows : copy .env.example .env  then set LLM_API_KEY=<your key>\n"
+            "  mac/Linux: export LLM_API_KEY=<your key>\n"
+            "Any OpenAI-compatible provider works (OpenRouter, Nous, OpenAI, Groq...)."
+        )
+
+
 def send(text: str) -> None:
     import urllib.request
     import urllib.parse
@@ -36,6 +47,9 @@ def send(text: str) -> None:
 def main() -> None:
     config.ensure_dirs()
     cmd = sys.argv[1] if len(sys.argv) > 1 else "cli"
+
+    if cmd in ("bot", "cli", "demo"):
+        require_llm_key()
 
     if cmd == "bot":
         if not config.TELEGRAM_BOT_TOKEN:
