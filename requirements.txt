@@ -1,0 +1,5 @@
+python-telegram-bot>=22.0
+reportlab>=4.0
+pypdf>=5.0
+docx2txt>=0.9
+requests>=2.31

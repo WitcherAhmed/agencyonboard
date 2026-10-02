@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+.env
+data/
+rehearse_out.txt
+.idea/
+.vscode/
